@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{%  block content %}
+<form method="POST">
+    <!-- Security token -->
+    {% csrf_token %}
+    <h2>Update post</h2>
+    {% for field in form %}
+      <p>
+        {{ field.label_tag }}
+        {{ field }}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+    <button type="submit">Update</button>
+  </form>
+{% endblock %}

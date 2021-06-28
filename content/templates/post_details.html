@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{%  block content %}
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<h2><a href= "{{ post.link }}">{{ post.title }}</a> by {{ post.get_author }}</h2><hr/>
+
+<form method="POST" enctype="multipart/form-data">
+    <!-- Security token -->
+    {% csrf_token %}
+
+    {% for field in form %}
+      <p>
+          Add comment:<br/>
+        {{ field }}<br/>
+          <button type="submit">Submit</button>
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+  </form>
+
+
+{% for comment in post.get_comments|dictsortreversed:"creation_date" %}
+    <!-- Use an element to toggle between a like/dislike icon -->
+    {{ comment.get_author }} ({{comment.when_published}}) : {{ comment.content }}<br/>
+    {% if user in comment.get_users_voted %}
+        <i class="fa fa-thumbs-down"></i>{{ comment.up_votes }} votes<br/><br/>
+    {% else %}
+        <i class="fa fa-thumbs-up"></i>{{ comment.up_votes }} votes<br/><br/>
+    {% endif %}
+{% endfor %}
+
+{% endblock %}

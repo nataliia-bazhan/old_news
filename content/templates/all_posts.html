@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{%  block content %}
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<ol>
+    {% for post in posts|dictsortreversed:"creation_date" %}
+    <li>
+        <!-- Use an element to toggle between a like/dislike icon -->
+        {% if user in post.get_users_voted %}
+            <a href="{% url 'content:post_vote' post.id %}"><i class="fa fa-thumbs-down"></i></a>
+        {% else %}
+            <a href="{% url 'content:post_vote' post.id %}"><i class="fa fa-thumbs-up"></i></a>
+        {% endif %}
+
+        <a href="{{ post.link }}">{{ post.title }}</a> by {{ post.get_author }}<br/>
+        {{ post.up_votes }} upvotes, {{ post.when_published }},
+
+        <a href="{% url 'content:post_details' post.id %}">
+        {% if post.get_comments|length > 1 %}
+            {{ post.get_comments|length }} comments
+        {% elif post.get_comments|length == 1 %}
+            1 comment
+        {% else %}
+            comment
+        {% endif %}</a><br/><hr/></li>
+    {% endfor %}
+</ol>
+{% endblock %}

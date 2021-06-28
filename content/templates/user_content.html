@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{%  block content %}
+<div class="grid-container">
+
+    <div class="left_column">
+        <h2> Posts by {{ user.username }}</h2>
+        {% for post in posts|dictsortreversed:"creation_date" %}
+            <div style="font-size:1.5vw"><a href="{{ post.link }}">{{ post.title }}</a></div>
+            <div style="font-size:1vw">{{ post.up_votes }} upvotes, {{ post.when_published }},
+                {{post.get_comments|length}} comments </div>
+
+            <a href="{% url 'content:post_update' post.id %}">Update</a>
+            <a href="{% url 'content:post_delete' post.id %}"
+               onclick="return confirm('Are you sure you want to delete this post?')">Delete</a><hr/>
+        {% endfor %}
+    </div>
+
+    <div class="right_column">
+        <h2> Comments by {{ user.username }} </h2>
+         {% for comment in comments|dictsortreversed:"creation_date" %}
+            <div style="font-size:1.5vw">{{ comment.content }}</div>
+            <div style="font-size:1vw">Comment on <a href="{{ comment.get_post.link }}">{{ comment.get_post.title }}</a></div>
+            <div style="font-size:1vw">{{ comment.up_votes }} upvotes, {{ comment.when_published }}</div>
+
+             <a href="{% url 'content:comment_update' comment.id %}">Update</a>
+             <a href="{% url 'content:comment_delete' comment.id %}"
+               onclick="return confirm('Are you sure you want to delete this comment?')">Delete</a><hr/>
+         {% endfor %}
+    </div>
+</div>
+{% endblock %}
