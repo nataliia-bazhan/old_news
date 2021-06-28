@@ -1,0 +1,14 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-evenly;
+  align-content: center;
+}
+
+.left_column {
+  grid-column: 1;
+}
+
+.right_column {
+  grid-column: 2;
+}
