@@ -11,4 +11,4 @@ Run code:
 
 Functions for launching recurring job running once a day are located in 'old_news/tasks.py'
 
-Link to deployed project: https://old-news-dt.herokuapp.com
+Link to the deployed project: https://old-news-dt.herokuapp.com
