@@ -9,9 +9,6 @@ Run code:
 - python3 manage.py migrate
 - python3 manage.py runserver
 
-Lunch recurring job running once a day to reset post upvotes count:
-- the job is done by django-background-task
-- function 'clear_votes()' in content/views
-The recurring job can be launched by command:
-- python3 manage.py process_tasks
+Functions for launching recurring job running once a day are located in 'old_news/tasks.py'
 
+Link to deployed project: https://old-news-dt.herokuapp.com
